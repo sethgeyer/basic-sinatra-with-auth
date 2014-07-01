@@ -4,6 +4,9 @@
   <title>Our Cool App</title>
 </head>
 <body>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %>
+<% end %>
 
 <%=yield%>
 
