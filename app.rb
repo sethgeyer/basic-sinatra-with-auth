@@ -31,14 +31,19 @@ class App < Sinatra::Application
   end
 
   #LOG IN
-  get "/log_in" do
+  post "/log_in" do
     #grab username and password & create hash
     hash = {username: params[:name], password: params[:password]}
     #iterate through the users array to see if the hash created == iterated item
     user_info = @user_database.all.detect { |user_hash| user_hash[:username] == hash[:username] && user_hash[:password] == hash[:password]}
     session[:user_id] = user_info[:id]
     flash[:notice] = "Welcome, #{user_info[:username]}"
-    erb :home
+    redirect "/"
+  end
+
+  get "/log_out" do
+    session.delete(:user_id)
+    redirect "/"
   end
 
 

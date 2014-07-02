@@ -19,4 +19,11 @@ feature "homepage" do
     click_on "Log In"
     expect(page).to have_content("Welcome, Seth")
   end
+
+  scenario "user is logged in" do
+    fill_in "name", with: "Seth"
+    fill_in "password", with: "seth"
+    click_on "Log In"
+    expect(page).to have_content("Log Out")
+  end
 end
