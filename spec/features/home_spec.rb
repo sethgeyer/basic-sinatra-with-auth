@@ -21,9 +21,26 @@ feature "homepage" do
   end
 
   scenario "user is logged in" do
+    click_on "Register"
+    fill_in "name", with: "Seth"
+    fill_in "password", with: "seth"
+    click_button "Submit"
     fill_in "name", with: "Seth"
     fill_in "password", with: "seth"
     click_on "Log In"
-    expect(page).to have_content("Log Out")
+    expect(page).to have_link("Log Out")
+  end
+
+  scenario "user is logged out" do
+    click_on "Register"
+    fill_in "name", with: "Seth"
+    fill_in "password", with: "seth"
+    click_button "Submit"
+    fill_in "name", with: "Seth"
+    fill_in "password", with: "seth"
+    click_button "Log In"
+    click_link("Log Out")
+    expect(page).to have_content("Register")
+    expect(page).to have_content("Log In")
   end
 end
