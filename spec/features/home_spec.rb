@@ -1,4 +1,4 @@
-feature "homepage" do
+feature "vistor visits page for first time" do
   before(:each) do
     visit "/"
   end
@@ -19,8 +19,11 @@ feature "homepage" do
     click_on "Log In"
     expect(page).to have_content("Welcome, Seth")
   end
+end
 
-  scenario "user is logged in" do
+feature "user has already logged in" do
+  before(:each ) do
+    visit "/"
     click_on "Register"
     fill_in "name", with: "Seth"
     fill_in "password", with: "seth"
@@ -28,19 +31,16 @@ feature "homepage" do
     fill_in "name", with: "Seth"
     fill_in "password", with: "seth"
     click_on "Log In"
+  end
+
+  scenario "user is logged in" do
     expect(page).to have_link("Log Out")
   end
 
-  scenario "user is logged out" do
-    click_on "Register"
-    fill_in "name", with: "Seth"
-    fill_in "password", with: "seth"
-    click_button "Submit"
-    fill_in "name", with: "Seth"
-    fill_in "password", with: "seth"
-    click_button "Log In"
+  scenario "user logs out" do
     click_link("Log Out")
     expect(page).to have_content("Register")
     expect(page).to have_content("Log In")
   end
+
 end
