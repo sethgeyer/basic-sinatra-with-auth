@@ -1,4 +1,5 @@
 class UserDatabase
+  attr_accessor :users
   def initialize
     @users = []
   end
